@@ -13,12 +13,19 @@ def validar_concepto(concepto):
     return concepto in CONCEPTOS_VALIDOS
 
 
-def validar_fondos(saldo, monto, concepto):
+def obtener_comision(concepto):
 
     if concepto == "Internet":
-        return saldo >= monto
+        return 0
 
-    return saldo >= (monto + COMISION)
+    return COMISION
+
+
+def validar_fondos(saldo, monto, concepto):
+
+    comision = obtener_comision(concepto)
+
+    return saldo >= (monto + comision)
 
 
 # ==========================
@@ -27,10 +34,9 @@ def validar_fondos(saldo, monto, concepto):
 
 def calcular_nuevo_saldo(saldo, monto, concepto):
 
-    if concepto == "Internet":
-        return saldo - monto
+    comision = obtener_comision(concepto)
 
-    return saldo - monto - COMISION
+    return saldo - monto - comision
 
 
 # ==========================
@@ -38,7 +44,9 @@ def calcular_nuevo_saldo(saldo, monto, concepto):
 # ==========================
 
 def generar_folio(concepto):
+
     timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
+
     return f"PAGO-{concepto.upper()}{timestamp}"
 
 

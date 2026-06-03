@@ -1,7 +1,7 @@
 import pytest
 
 
-from payflow import _asegurar_numero_no_negativo, validar_presupuesto
+from presupuesto import _asegurar_numero_no_negativo, validar_presupuesto
 
 
 @pytest.mark.parametrize(

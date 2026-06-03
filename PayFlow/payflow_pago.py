@@ -13,7 +13,11 @@ def validar_concepto(concepto):
     return concepto in CONCEPTOS_VALIDOS
 
 
-def validar_fondos(saldo, monto):
+def validar_fondos(saldo, monto, concepto):
+
+    if concepto == "Internet":
+        return saldo >= monto
+
     return saldo >= (monto + COMISION)
 
 
@@ -21,7 +25,11 @@ def validar_fondos(saldo, monto):
 # CAPA INFERIOR (Balance)
 # ==========================
 
-def calcular_nuevo_saldo(saldo, monto):
+def calcular_nuevo_saldo(saldo, monto, concepto):
+
+    if concepto == "Internet":
+        return saldo - monto
+
     return saldo - monto - COMISION
 
 
@@ -44,7 +52,11 @@ def procesar_pago(cuenta_usuario, concepto, monto):
 
     saldo_actual = cuenta_usuario["saldo"]
 
-    if not validar_fondos(saldo_actual, monto):
+    if not validar_fondos(
+        saldo_actual,
+        monto,
+        concepto
+    ):
         return {
             "estado": "RECHAZADO",
             "mensaje": "Fondos insuficientes"
@@ -52,7 +64,8 @@ def procesar_pago(cuenta_usuario, concepto, monto):
 
     nuevo_saldo = calcular_nuevo_saldo(
         saldo_actual,
-        monto
+        monto,
+        concepto
     )
 
     cuenta_usuario["saldo"] = nuevo_saldo

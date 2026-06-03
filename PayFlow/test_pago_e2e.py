@@ -19,10 +19,26 @@ def test_pago_exitoso_renta():
     assert resultado["folio"].startswith("PAGO-RENTA")
 
 
-def test_saldo_insuficiente_por_comision():
+def test_saldo_insuficiente_renta_por_comision():
+
     cuenta_usuario = {
         "id_usuario": 1,
-        "saldo": 1010
+        "saldo": 3510
+    }
+
+    resultado = procesar_pago(
+        cuenta_usuario,
+        concepto="Renta",
+        monto=3500
+    )
+
+    assert resultado["estado"] == "RECHAZADO"
+
+def test_pago_internet_sin_comision():
+
+    cuenta_usuario = {
+        "id_usuario": 1,
+        "saldo": 1000
     }
 
     resultado = procesar_pago(
@@ -31,11 +47,9 @@ def test_saldo_insuficiente_por_comision():
         monto=1000
     )
 
-    assert resultado["estado"] == "RECHAZADO"
-    assert resultado["mensaje"] == "Fondos insuficientes"
-
-    assert cuenta_usuario["saldo"] == 1010
-
+    assert resultado["estado"] == "APROBADO"
+    assert resultado["nuevo_saldo"] == 0
+    assert resultado["folio"].startswith("PAGO-INTERNET")
 
 def test_concepto_invalido():
     cuenta_usuario = {

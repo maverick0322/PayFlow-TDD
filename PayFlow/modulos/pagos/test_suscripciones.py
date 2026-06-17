@@ -1,5 +1,5 @@
 import pytest
-from procesador_pagos import procesar_suscripcion, SolicitudPago, ResultadoPago
+from modulos.pagos.procesador_pagos import procesar_suscripcion, SolicitudPago, ResultadoPago
 
 def test_R1_cuenta_bloqueada_rechaza():
     

@@ -9,7 +9,7 @@ Objetivo:
 from unittest.mock import patch
 import pytest
 
-import inversiones as inv
+import modulos.inversiones.inversiones as inv
 
 
 def test_r7_autoriza_si_saldo_suficiente_y_perfil_compatible():
@@ -40,8 +40,8 @@ def test_r7_rechaza_por_saldo_insuficiente():
 
 
 def test_r8_resultado_incluye_monto_estado_y_folio():
-    with patch("inversiones.calcular_monto_final", return_value=1250.75):
-        with patch("inversiones.definir_estado_inversion", return_value=inv.INVERSION_ESTABLE):
+    with patch("modulos.inversiones.inversiones.calcular_monto_final", return_value=1250.75):
+        with patch("modulos.inversiones.inversiones.definir_estado_inversion", return_value=inv.INVERSION_ESTABLE):
             resultado = inv.autorizar_inversion(
                 capital=1000,
                 saldo=5000,
@@ -83,9 +83,9 @@ def test_rebanada_eugenio_media_con_capas_ajenas_mockeadas():
     Evidencia de la rebanada central:
     Eugenio prueba la capa media aislando las dos capas externas.
     """
-    with patch("inversiones.perfil_es_compatible", return_value=True):
-        with patch("inversiones.calcular_monto_final", return_value=1500.40):
-            with patch("inversiones.definir_estado_inversion", return_value=inv.INVERSION_RIESGOSA):
+    with patch("modulos.inversiones.inversiones.perfil_es_compatible", return_value=True):
+        with patch("modulos.inversiones.inversiones.calcular_monto_final", return_value=1500.40):
+            with patch("modulos.inversiones.inversiones.definir_estado_inversion", return_value=inv.INVERSION_RIESGOSA):
                 resultado = inv.autorizar_inversion(
                     capital=3000,
                     saldo=5000,

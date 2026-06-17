@@ -10,7 +10,7 @@ Objetivo:
 from unittest.mock import patch
 import pytest
 
-import inversiones as inv
+import modulos.inversiones.inversiones as inv
 
 
 def test_r1_calcula_interes_compuesto_bajo_riesgo_12_meses():
@@ -58,7 +58,7 @@ def test_rebanada_arturo_bottom_up_con_capa_superior_mockeada():
     Así se valida que el cálculo matemático puede integrarse aunque
     la gestión de estados sea una dependencia externa simulada.
     """
-    with patch("inversiones.definir_estado_inversion", return_value=inv.INVERSION_ESTABLE):
+    with patch("modulos.inversiones.inversiones.definir_estado_inversion", return_value=inv.INVERSION_ESTABLE):
         resultado = inv.autorizar_inversion(
             capital=1000,
             saldo=5000,

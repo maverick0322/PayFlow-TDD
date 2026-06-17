@@ -1,5 +1,5 @@
 import pytest
-from payflow_pago import procesar_pago
+from modulos.pagos.payflow_pago import procesar_pago
 
 
 def test_pago_exitoso_renta():

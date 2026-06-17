@@ -1,6 +1,6 @@
 import pytest
 
-from transferencia import validar_transferencia
+from modulos.transferencias.transferencia import validar_transferencia
 
 
 def test_transferencia_misma_es_aprobada():

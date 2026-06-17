@@ -10,7 +10,7 @@ Objetivo:
 from unittest.mock import patch
 import pytest
 
-import inversiones as inv
+import modulos.inversiones.inversiones as inv
 
 
 def test_r4_estado_inicial_es_disponible():
@@ -60,7 +60,7 @@ def test_rebanada_erick_top_down_con_capa_inferior_mockeada():
     Así se valida que la clasificación de estado funciona aunque
     la capa inferior todavía no estuviera terminada.
     """
-    with patch("inversiones.calcular_monto_final", return_value=1250.75):
+    with patch("modulos.inversiones.inversiones.calcular_monto_final", return_value=1250.75):
         resultado = inv.autorizar_inversion(
             capital=3000,
             saldo=5000,

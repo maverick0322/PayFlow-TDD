@@ -9,7 +9,7 @@ Objetivo:
 
 import pytest
 
-import inversiones as inv
+import modulos.inversiones.inversiones as inv
 
 
 def test_sandwich_integracion_bajo_riesgo_estable():

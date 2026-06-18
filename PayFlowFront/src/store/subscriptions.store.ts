@@ -11,7 +11,7 @@ interface SubscriptionsState {
   // Actions
   fetchAll:         () => Promise<void>;
   addSubscription:  (dto: CreateSubscriptionDto) => Promise<void>;
-  confirmPayment:   (id: string, currentBalance: number) => Promise<'EXITOSO' | 'RECHAZADO'>;
+  confirmPayment:   (id: string, currentBalance: number) => Promise<string>;
   setStatusFilter:  (filter: SubscriptionStatus | 'all') => void;
 
   // Derived
@@ -42,7 +42,7 @@ export const useSubscriptionsStore = create<SubscriptionsState>((set, get) => ({
 
   confirmPayment: async (id, currentBalance) => {
     const sub = get().subscriptions.find((s) => s.id === id);
-    if (!sub) return 'RECHAZADO';
+    if (!sub) return 'PAGO_RECHAZADO';
 
     const { result, newStatus } = await subscriptionsApi.confirmPayment(id, currentBalance, sub.amount);
     set((state) => ({
